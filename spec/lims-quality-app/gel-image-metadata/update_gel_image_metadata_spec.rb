@@ -32,26 +32,50 @@ module Lims::QualityApp
     context "when the action is valid" do
       include_context "create object"
 
-      subject do
-        described_class.new(:store => store, :user => user, :application => application) do |a,s|
-          a.gel_image_metadata = gel_image_metadata
-          a.score = new_score
+      shared_examples_for "updating a gel image metadata" do
+        it "is valid" do
+          described_class.new(parameters).valid?.should == true
+        end
+
+        it_behaves_like "an action"
+
+        it "updates the gel image metadata" do
+          Lims::Core::Persistence::Session.any_instance.should_receive(:save_all)
+          result = subject.call
+          gel_image_metadata = result[:gel_image_metadata]
+          gel_image_metadata.should be_a(GelImageMetadata)
+          gel_image_metadata.score.should == new_score
+          gel_image_metadata.gel_uuid.should == gel_uuid
         end
       end
 
-      it "is valid" do
-        described_class.new(parameters).valid?.should == true
+      context "when updating directly a gel image metadata" do
+        subject do
+          described_class.new(:store => store, :user => user, :application => application) do |a,s|
+            a.gel_image_metadata = gel_image_metadata
+            a.score = new_score
+          end
+        end
+
+        it_behaves_like "updating a gel image metadata"
       end
 
-      it_behaves_like "an action"
 
-      it "updates the gel image metadata" do
-        Lims::Core::Persistence::Session.any_instance.should_receive(:save_all)
-        result = subject.call
-        gel_image_metadata = result[:gel_image_metadata]
-        gel_image_metadata.should be_a(GelImageMetadata)
-        gel_image_metadata.score.should == new_score
-        gel_image_metadata.gel_uuid.should == gel_uuid
+      context "when updating by gel uuid" do
+        before do
+          Lims::Core::Persistence::Session.any_instance.stub_chain(:gel_image_metadata, :[]) do
+            gel_image_metadata
+          end
+        end
+
+        subject do
+          described_class.new(:store => store, :user => user, :application => application) do |a,s|
+            a.gel_uuid = gel_uuid
+            a.score = new_score
+          end
+        end
+
+        it_behaves_like "updating a gel image metadata"
       end
     end
   end
