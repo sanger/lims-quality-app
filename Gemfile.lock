@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 11e3daf4cac29c79c46975b073a743a5c225835c
-  branch: development
+  revision: 3ffeaa815db9362d2f6aaa2d0249281889d416aa
+  branch: uat
   specs:
-    lims-api (3.1.0.7.0)
+    lims-api (3.1.0.pre)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -12,10 +12,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: fdefd9962a8639f3999c6699bdee566a0046dd9b
-  branch: development
+  revision: 70785367d45b535c37cb469a3f5b828f765d5fa2
+  branch: uat
   specs:
-    lims-core (3.1.0.4.1)
+    lims-core (3.1.0.pre)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
@@ -46,7 +46,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-quality-app (0.1.0)
+    lims-quality-app (0.1.0.rc1)
       bunny (= 0.9.0.pre10)
 
 GEM
@@ -102,7 +102,7 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
-    sequel (4.4.0)
+    sequel (4.5.0)
     shotgun (0.9)
       rack (>= 1.0)
     sqlite3 (1.3.8)
@@ -129,8 +129,8 @@ DEPENDENCIES
   jdbc-mysql
   jdbc-sqlite3
   json
-  lims-api (~> 3.1)!
-  lims-core (~> 3.1)!
+  lims-api (~> 3.1.0.pre)!
+  lims-core (~> 3.1.0.pre)!
   lims-quality-app!
   mysql2
   oj
