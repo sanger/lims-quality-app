@@ -10,7 +10,7 @@ Sequel.migration do
       primary_key :id
       String :gel_uuid, :fixed => true, :size => 64
       String :score
-      index :gel_uuid
+      index :gel_uuid, :unique => true
     end
   end
 
