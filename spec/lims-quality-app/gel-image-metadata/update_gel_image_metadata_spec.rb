@@ -70,7 +70,7 @@ module Lims::QualityApp
 
         subject do
           described_class.new(:store => store, :user => user, :application => application) do |a,s|
-            a.gel_uuid = gel_uuid
+            a.by_gel_uuid = gel_uuid
             a.score = new_score
           end
         end

@@ -6,18 +6,18 @@ module Lims::QualityApp
     class UpdateGelImageMetadata
       include Lims::Core::Actions::Action
       attribute :gel_image_metadata, GelImageMetadata, :required => false
-      attribute :gel_uuid, String, :required => false
+      attribute :by_gel_uuid, String, :required => false
       attribute :score, String, :required => true
       validates_with_method :ensure_gel_parameter
 
       def _call_in_session(session)
-        metadata = gel_image_metadata || session.gel_image_metadata[:gel_uuid => gel_uuid]
+        metadata = gel_image_metadata || session.gel_image_metadata[:gel_uuid => by_gel_uuid]
         metadata.score = score
         {:gel_image_metadata => metadata}
       end
 
       def ensure_gel_parameter
-        unless gel_image_metadata || gel_uuid
+        unless gel_image_metadata || by_gel_uuid
           return [false, "A gel image metadata uuid or a gel uuid must be passed."]
         end
         true
