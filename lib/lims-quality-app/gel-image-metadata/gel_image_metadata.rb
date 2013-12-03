@@ -5,7 +5,6 @@ module Lims::QualityApp
     include Lims::Core::Resource
 
     attribute :score, String, :required => true, :initializable => true
-    attribute :gel_uuid, String, :required => true, :initializable => true, :writer => :private
-
+    attribute :gel_uuid, String, :required => true, :initializable => true
   end
 end
