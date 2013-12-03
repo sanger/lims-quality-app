@@ -1,5 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2
 require 'json'
+require 'fileutils'
 
 class Object
   def andand
@@ -97,6 +98,7 @@ def generate_helper_file(filename, directories)
   create_needed_file(filename) do |target|
     puts "generating #{filename}"
     parent_file = helper_filename_for(directories[0...-1])
+    generate_helper_file(parent_file, directories[0...-1])
     require_spec(parent_file, target)
     target.puts "# This file will be required by
 # all file in this directory and subdirectory
@@ -120,25 +122,46 @@ def print_lines(target, string)
         end
 end
 
+# Header of the same type, needs to be grouped in one
+# example, Accept:application/json, Accept:application/xml 
+# => Accept:application/jon, application/xml
+def group_header(headers)
+  Hash.new { |h,k| h[k] = [] }.tap do |groups|
+    headers.each do |h|
+      key, value = h.split(/:\s/)
+      groups[key] << value
+    end
+  end
+end
+
+# For convenience reason we use the response header (Content-Type)
+# as normal header.  However, if the content-type is in the header
+# We don't need to use the response one
+#
+def merge_headers(header, response)
+  header = group_header(header)
+  response = group_header(response)
+  response.merge(header)
+end
+
 def generate_it_block(example, target)
-    target.puts %Q{  it "#{example.title || example["method"]}" do}
-      generate_http_request(example, target)
+  target.puts %Q{  it "#{example.title || example["method"]}" do}
+    generate_http_request(example, target)
     target.puts '  end'
 end
 
 def generate_http_request(example, target)
-    example.description do |d|
-      print_lines(target, d) { |line| "  # #{line}" }
-    end
+  example.description do |d|
+    print_lines(target, d) { |line| "  # #{line}" }
+  end
 
   example.setup do |s|
     print_lines(target, s) { |line| "    #{line}" }
   end
 
   target.puts
-  ((example.header || []) + (example.response_header || [])).map do |h|
-    key, value = h.split(/:\s/)
-    target.puts "    header('#{key}', '#{value}')"
+  merge_headers((example.header || []), (example.response_header || [])).each do |key,values|
+    target.puts "    header('#{key}', '#{values.join(', ')}')"
   end
 
   target.puts
@@ -156,16 +179,17 @@ def generate_http_request(example, target)
       target.puts %Q{    #{JSON.pretty_generate(parameters, :indent => '    ')}}
       target.puts "    EOD"
     end
-    target.puts %Q{    response.status.should == #{example.status || 200}}
     if example.response
       expected_response = if example.response.is_a?(Hash) 
                             example.response.to_json.gsub(/http:\/\/localhost:9292/, 'http://example.org')
                           else
                             example.response.to_s.gsub(/"\//, '"http://example.org/')
                           end
-      target.puts %Q{    response.body.should match_json <<-EOD}
+      target.puts %Q{    response.should match_json_response(#{example.status || 200 }, <<-EOD) }
       target.puts %Q{    #{JSON.pretty_generate(JSON.parse(expected_response), :indent => '    ')}}
       target.puts "    EOD"
+    else
+      target.puts %Q{    response.status.should = #{example.status || 200 }}
     end
     target.puts
   elsif example.is_a?(Hash)
@@ -178,11 +202,11 @@ def generate_http_request(example, target)
   end
 end
 
-create_needed_file('spec/integrations/requests/spec_helper.rb') do |target|
-  target.puts "require 'integrations/spec_helper'"
+create_needed_file('spec/requests/spec_helper.rb') do |target|
+  target.puts "require 'spec_helper'"
 end
 
-process_directory("spec/requests", ["spec/integrations/requests"]) do |directory|
+process_directory("requests", ["spec/requests"]) do |directory|
   title = directory.sub(/\A\d+_/, '').split('_').map(&:capitalize).join(' ')
   print <<EOF
   --

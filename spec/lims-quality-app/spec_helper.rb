@@ -25,3 +25,4 @@ shared_context "create object" do
     end
   end
 end
+
