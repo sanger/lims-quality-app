@@ -17,7 +17,7 @@ module Lims::QualityApp
       def _call_in_session(session)
         gi = gel_image || session.gel_image[:gel_uuid => by_gel_uuid]
         scores.each do |location, score|
-          gi.scores[location.to_sym] = session.gel_image_score[:score => score]
+          gi.scores[location] = session.score[:score => score]
         end
 
         {:gel_image => gi}
@@ -31,11 +31,11 @@ module Lims::QualityApp
       end
 
       def ensure_scores
-       # scores.each do |location, score|
-       #   unless GelImageScore::SCORES.include?(score.to_s.downcase)
-       #     return [false, "#{score} is not a valid score for the location #{location}. Valid scores are #{GelImageScore::SCORES.inspect}"]
-       #   end
-       # end
+        scores.each do |location, score|
+          unless GelImage::Score::SCORES.include?(score.to_s.downcase)
+            return [false, "#{score} is not a valid score for the location #{location}. Valid scores are #{GelImage::Score::SCORES.inspect}"]
+          end
+        end
         true
       end
     end
