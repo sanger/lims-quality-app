@@ -19,7 +19,7 @@ module Lims::QualityApp
         end.to change { db[:gel_images].count }.by(1)
       end
 
-      it "is relaodable" do
+      it "is reloadable" do
         store.with_session do |session|
           gi_db = session.gel_image[gel_image_id]
           gi_db.should == gel_image

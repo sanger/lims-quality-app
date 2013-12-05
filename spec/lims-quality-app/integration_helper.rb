@@ -51,7 +51,7 @@ end
 
 shared_context "clean store" do
   after(:each) do
-    %w{}.each do |table|
+    %w{gel_image_position_scores gel_images uuid_resources primary_keys}.each do |table|
       db[table.to_sym].delete
     end
     db.disconnect
