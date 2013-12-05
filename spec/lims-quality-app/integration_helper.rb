@@ -18,6 +18,19 @@ def set_uuid(session, object, uuid)
   ur.send(:uuid=, uuid)
 end
 
+module Helper
+  def save(object)
+    store.with_session do |session|
+      session << object
+      lambda { session.id_for(object) }
+    end.call
+  end
+end
+
+RSpec.configure do |c|
+  c.include Helper
+end
+
 shared_context 'use core context service' do |user="user@example.com", application_id="application_id"|
   let(:db) { connect_db(:test) }
   let(:store) { Lims::Core::Persistence::Sequel::Store.new(db) }
@@ -38,7 +51,7 @@ end
 
 shared_context "clean store" do
   after(:each) do
-    %w{gel_image_metadata uuid_resources primary_keys}.each do |table|
+    %w{}.each do |table|
       db[table.to_sym].delete
     end
     db.disconnect

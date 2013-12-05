@@ -1,0 +1,34 @@
+<%
+require 'json'
+h={:header => [], :response_header => [] }
+h[:description]=<<EOD
+EOD
+h[:method] = "POST"
+h[:url]='/actions/update_gel_image_score'
+h[:header] << 'Accept: application/json'
+h[:parameters]=<<EOP
+{ "update_gel_image_score": {
+    "by_gel_uuid": "11111111-2222-3333-4444-666666666666",
+    "scores": {
+      "A1": "pass",
+      "B2": "fail",
+      "C3": "degraded"
+    }
+}}
+EOP
+h[:status]=200
+h[:response_header] << 'Content-Type: application/json'
+h[:setup]=<<EOD
+gel_image = Lims::QualityApp::GelImage.new(
+  :gel_uuid => "11111111-2222-3333-4444-666666666666",
+  :image => "encoded image 1"
+)
+
+save_with_uuid gel_image => [1,2,3,4,5]
+EOD
+
+h[:response]=<<EOD
+{}
+EOD
+%>
+<%= h.to_json %>
