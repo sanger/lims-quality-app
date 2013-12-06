@@ -10,7 +10,11 @@ describe "create_gel_image", :gel_image => true do
     {
     "gel_image": {
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
-        "image": "image encoded"
+        "image": "image encoded",
+        "scores": {
+            "A1": "pass",
+            "B2": "fail"
+        }
     }
 }
     EOD
@@ -27,6 +31,8 @@ describe "create_gel_image", :gel_image => true do
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
         "image": "image encoded",
         "scores": {
+            "A1": "pass",
+            "B2": "fail"
         }
     }
 }

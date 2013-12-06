@@ -9,7 +9,11 @@ h[:header] << 'Accept: application/json'
 h[:parameters]=<<EOP
 { "gel_image": {
     "gel_uuid": "11111111-2222-3333-4444-666666666666",
-    "image": "image encoded"
+    "image": "image encoded",
+    "scores": {
+      "A1": "pass",
+      "B2": "fail"
+    }
 }}
 EOP
 h[:status]=200
@@ -28,7 +32,10 @@ h[:response]=<<EOD
   "uuid": "11111111-2222-3333-4444-555555555555",
   "gel_uuid": "11111111-2222-3333-4444-666666666666",
   "image": "image encoded",
-  "scores": {}
+  "scores": {
+    "A1": "pass",
+    "B2": "fail"
+  }
 }}
 EOD
 %>
