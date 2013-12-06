@@ -16,6 +16,7 @@ Sequel.migration do
     create_table :scores do
       primary_key :id
       String :score
+      index :score, :unique => true
     end
 
     ["pass", "fail", "degraded", "partially degraded"].each do |score|
