@@ -5,6 +5,7 @@ module Lims::Core
   module Persistence
     class GelFilter < Lims::Core::Persistence::Filter
       include Lims::Core::Resource
+      NOT_IN_ROOT = 1
       attribute :criteria, Hash, :required => true
 
       def initialize(criteria)
