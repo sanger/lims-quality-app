@@ -1,0 +1,2 @@
+
+{"header":["Accept: application/json"],"response_header":["Content-Type: application/json"],"description":"","method":"POST","url":"/gel_images","parameters":"{ \"gel_image\": {\n    \"gel_uuid\": \"11111111-2222-3333-4444-666666666666\",\n    \"image\": \"image encoded\",\n    \"scores\": {\n      \"A1\": \"dummy score\",\n      \"B2\": \"fail\"\n    }\n}}\n","status":422,"setup":"","response":"{\n\"errors\": {\n  \"ensure_scores\": [\n    \"dummy score is not a valid score for the location A1. Valid scores are pass, fail, degraded, partially degraded.\"\n  ]\n}\n}\n"}
