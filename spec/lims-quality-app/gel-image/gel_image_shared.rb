@@ -20,5 +20,18 @@ module Lims::QualityApp
         "D4" => GelImage::Score.new(:score => "partially degraded")
       }
     end
+
+    def gel_image_action_parameters
+      {
+        :gel_uuid => "11111111-2222-3333-4444-555555555555",
+        :image => "encoded image 1",
+        :scores => {
+          "A1" => "pass",
+          "B2" => "fail",
+          "C3" => "degraded",
+          "D4" => "partially degraded"
+        }
+      }
+    end
   end
 end
