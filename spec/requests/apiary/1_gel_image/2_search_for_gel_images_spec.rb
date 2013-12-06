@@ -62,7 +62,9 @@ describe "search_for_gel_images", :gel_image => true do
             },
             "uuid": "11111111-2222-3333-4444-666666666666",
             "gel_uuid": "11111111-0000-0000-0000-111111111111",
-            "image": "encoded image 1"
+            "image": "encoded image 1",
+            "scores": {
+            }
         }
     ]
 }
