@@ -32,6 +32,7 @@ module Lims::QualityApp
 
     context "when the action is valid" do
       include_context "create object"
+      include_context "mock gel image score"
 
       context "updating a gel image scores" do
         subject do
@@ -42,19 +43,6 @@ module Lims::QualityApp
               "C3" => "pass",
               "E5" => "partially degraded"
             }
-          end
-        end
-
-        before do
-          Lims::Core::Persistence::Session.any_instance.tap do |session_instance|
-            session_instance.stub_chain(:gel_image, :[]) { new_scored_gel_image }
-            session_instance.stub(:score) do
-              mock(:session_score).tap do |sc|
-                GelImage::Score::SCORES.each do |score|
-                  sc.stub(:[]).with(:score => score) { GelImage::Score.new(:score => score) }
-                end
-              end
-            end
           end
         end
 

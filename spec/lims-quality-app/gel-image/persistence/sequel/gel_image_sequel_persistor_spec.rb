@@ -54,7 +54,7 @@ module Lims::QualityApp
             store.with_session do |session|
               session << gel_image
             end
-          end.to change { db[:scores].count }.by(4)
+          end.to change { db[:scores].count }.by(0)
         end
 
         it "reloads the scores" do

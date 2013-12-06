@@ -25,12 +25,16 @@ module Lims::QualityApp
       {
         :gel_uuid => "11111111-2222-3333-4444-555555555555",
         :image => "encoded image 1",
-        :scores => {
-          "A1" => "pass",
-          "B2" => "fail",
-          "C3" => "degraded",
-          "D4" => "partially degraded"
-        }
+        :scores => action_scores
+      }
+    end
+
+    def action_scores
+      {
+        "A1" => "pass",
+        "B2" => "fail",
+        "C3" => "degraded",
+        "D4" => "partially degraded"
       }
     end
   end

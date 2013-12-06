@@ -31,21 +31,16 @@ module Lims::QualityApp
       end
     end
 
-
     context "when the action is valid" do
       include_context "create object"
+      include_context "mock gel image score"
 
       context "creating a gel image" do
         subject do
           described_class.new(:store => store, :user => user, :application => application) do |a,s|
             a.gel_uuid = "11111111-2222-3333-4444-666666666666"
             a.image = "encoded image 1"
-            a.scores = {
-              "A1" => "pass",
-              "B2" => "fail",
-              "C3" => "degraded",
-              "D4" => "partially degraded"
-            }
+            a.scores = action_scores 
           end
         end
 
@@ -63,10 +58,10 @@ module Lims::QualityApp
           gel_image.gel_uuid.should == "11111111-2222-3333-4444-666666666666"
           gel_image.image.should == "encoded image 1"
           gel_image.scores.size.should == 4
-          gel_image.scores["A1"].should == "pass"
-          gel_image.scores["B2"].should == "fail"
-          gel_image.scores["C3"].should == "degraded"
-          gel_image.scores["D4"].should == "partially degraded"
+          gel_image.scores["A1"].score.should == "pass"
+          gel_image.scores["B2"].score.should == "fail"
+          gel_image.scores["C3"].score.should == "degraded"
+          gel_image.scores["D4"].score.should == "partially degraded"
         end
       end
     end
