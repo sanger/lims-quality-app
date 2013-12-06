@@ -14,9 +14,10 @@ module Lims::QualityApp
 
     class GelImagePersistor
       def children_position_score(gel_image, children)
-        gel_image.scores.each do |position, score|
-          next unless score
-          position_score = PositionScore.new(gel_image, position, score)
+        gel_image.scores.each do |position, gel_image_score|
+          next unless gel_image_score
+          score_db = @session.score[:score => gel_image_score.score]
+          position_score = PositionScore.new(gel_image, position, score_db)
           state = @session.state_for(position_score)
           state.resource = position_score
           children << position_score

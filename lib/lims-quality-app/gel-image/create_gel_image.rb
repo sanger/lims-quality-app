@@ -10,13 +10,13 @@ module Lims::QualityApp
 
       attribute :image, String, :required => true
       attribute :gel_uuid, String, :required => true
-      attribute :scores, Hash, :required => false
+      attribute :scores, Hash, :required => false, :default => {}
       validates_with_method :ensure_scores
 
       def _call_in_session(session)
         gel_image = GelImage.new(:image => image, :gel_uuid => gel_uuid)
         scores.each do |location, score|
-          gel_image.scores[location] = score
+          gel_image.scores[location] = session.score[:score => score]
         end
 
         session << gel_image
