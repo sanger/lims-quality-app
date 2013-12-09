@@ -3,24 +3,26 @@ require 'json'
 h={:header => [], :response_header => [] }
 h[:description]=<<EOD
 EOD
-h[:method] = "PUT"
-h[:url]='/11111111-2222-3333-4444-555555555555'
+h[:method] = "POST"
+h[:url]='/gel_images'
 h[:header] << 'Accept: application/json'
 h[:parameters]=<<EOP
-{ "score": "very good" }
+{ "gel_image": {
+    "gel_uuid": "11111111-2222-3333-4444-666666666666",
+    "image": "image encoded",
+    "scores": {
+      "A1": "pass",
+      "B2": "fail"
+    }
+}}
 EOP
 h[:status]=200
 h[:response_header] << 'Content-Type: application/json'
 h[:setup]=<<EOD
-gel_image_metadata = Lims::QualityApp::GelImageMetadata.new(
-  :score => "good", 
-  :gel_uuid => "11111111-2222-3333-4444-666666666666"
-)
-save_with_uuid gel_image_metadata => [1,2,3,4,5]
 EOD
 
 h[:response]=<<EOD
-{ "gel_image_metadata": {
+{ "gel_image": {
   "actions": {
     "read": "http://example.org/11111111-2222-3333-4444-555555555555",
     "create": "http://example.org/11111111-2222-3333-4444-555555555555",
@@ -28,8 +30,12 @@ h[:response]=<<EOD
     "delete": "http://example.org/11111111-2222-3333-4444-555555555555"
   },
   "uuid": "11111111-2222-3333-4444-555555555555",
-  "score": "very good",
-  "gel_uuid": "11111111-2222-3333-4444-666666666666"
+  "gel_uuid": "11111111-2222-3333-4444-666666666666",
+  "image": "image encoded",
+  "scores": {
+    "A1": "pass",
+    "B2": "fail"
+  }
 }}
 EOD
 %>
