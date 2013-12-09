@@ -6,17 +6,17 @@ Sequel.migration do
       Blob :image
     end
 
+    create_table :scores do
+      primary_key :id
+      String :score
+      index :score, :unique => true
+    end
+
     create_table :gel_image_position_scores do
       primary_key :id
       foreign_key :gel_image_id, :gel_images, :key => :id
       String :position
       foreign_key :score_id, :scores, :key => :id
-    end
-
-    create_table :scores do
-      primary_key :id
-      String :score
-      index :score, :unique => true
     end
 
     ["pass", "fail", "degraded", "partially degraded"].each do |score|
