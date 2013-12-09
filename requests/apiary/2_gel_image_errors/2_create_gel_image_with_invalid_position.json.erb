@@ -11,7 +11,7 @@ h[:parameters]=<<EOP
     "gel_uuid": "11111111-2222-3333-4444-666666666666",
     "image": "image encoded",
     "scores": {
-      "A1": "dummy score",
+      "dummy": "pass",
       "B2": "fail"
     }
 }}
@@ -25,7 +25,7 @@ h[:response]=<<EOD
 {
 "errors": {
   "ensure_scores": [
-    "dummy score is not a valid score for the position A1. Valid scores are pass, fail, degraded, partially degraded."
+  "dummy is not a valid position."
   ]
 }
 }

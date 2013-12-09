@@ -27,6 +27,10 @@ module Lims::QualityApp
       it "requires valid scores" do
         described_class.new(parameters.tap { |p| p[:scores]["E5"] = "dummy score" }).valid?.should == false
       end
+
+      it "requires valid position" do
+        described_class.new(parameters.tap { |p| p[:scores]["dummy"] = "pass" }).valid?.should == false
+      end
     end
 
 

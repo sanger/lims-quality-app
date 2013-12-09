@@ -1,7 +1,7 @@
 require "requests/apiary/2_gel_image_errors/spec_helper"
-describe "create_a_gel_image_with_invalid_score", :gel_image_errors => true do
+describe "create_gel_image_with_invalid_position", :gel_image_errors => true do
   include_context "use core context service"
-  it "create_a_gel_image_with_invalid_score" do
+  it "create_gel_image_with_invalid_position" do
 
     header('Content-Type', 'application/json')
     header('Accept', 'application/json')
@@ -12,7 +12,7 @@ describe "create_a_gel_image_with_invalid_score", :gel_image_errors => true do
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
         "image": "image encoded",
         "scores": {
-            "A1": "dummy score",
+            "dummy": "pass",
             "B2": "fail"
         }
     }
@@ -22,7 +22,7 @@ describe "create_a_gel_image_with_invalid_score", :gel_image_errors => true do
     {
     "errors": {
         "ensure_scores": [
-            "dummy score is not a valid score for the position A1. Valid scores are pass, fail, degraded, partially degraded."
+            "dummy is not a valid position."
         ]
     }
 }
