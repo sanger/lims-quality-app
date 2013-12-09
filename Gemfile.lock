@@ -106,13 +106,10 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
-<<<<<<< HEAD
-=======
     ruby-debug (0.10.4)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
     ruby-debug-base (0.10.4-java)
->>>>>>> aa73128a8346f99d7cfb492069d6003c7f75b98e
     sequel (4.5.0)
     shotgun (0.9)
       rack (>= 1.0)
