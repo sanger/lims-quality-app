@@ -1,11 +1,19 @@
 require 'spec_helper'
 require 'yaml'
 require 'logger'
+require 'sequel'
+Sequel.extension :migration
 Loggers = []
 
 def connect_db(env)
   config = YAML.load_file(File.join('config','database.yml'))
-  Sequel.connect(config[env.to_s], :loggers => Loggers)
+
+  if RUBY_PLATFORM == "java"
+    require 'jdbc/sqlite3'
+    Sequel.connect('jdbc:sqlite:memory')
+  else
+    Sequel.connect(config[env.to_s], :loggers => Loggers)
+  end
 end
 
 def config_bus(env)
@@ -18,6 +26,19 @@ def set_uuid(session, object, uuid)
   ur.send(:uuid=, uuid)
 end
 
+module Helper
+  def save(object)
+    store.with_session do |session|
+      session << object
+      lambda { session.id_for(object) }
+    end.call
+  end
+end
+
+RSpec.configure do |c|
+  c.include Helper
+end
+
 shared_context 'use core context service' do |user="user@example.com", application_id="application_id"|
   let(:db) { connect_db(:test) }
   let(:store) { Lims::Core::Persistence::Sequel::Store.new(db) }
@@ -28,6 +49,9 @@ shared_context 'use core context service' do |user="user@example.com", applicati
   let(:context_service) { Lims::Api::ContextService.new(store, message_bus) }
 
   before(:each) do
+    if RUBY_PLATFORM == "java"
+      Sequel::Migrator.run(db, 'db/migrations')
+    end
     app.set(:context_service, context_service)
     header('user_email', user) if user
     header('application_id', application_id) if application_id
@@ -38,7 +62,7 @@ end
 
 shared_context "clean store" do
   after(:each) do
-    %w{gel_image_metadata uuid_resources primary_keys}.each do |table|
+    %w{gel_image_position_scores gel_images uuid_resources primary_keys}.each do |table|
       db[table.to_sym].delete
     end
     db.disconnect

@@ -1,0 +1,34 @@
+<%
+require 'json'
+h={:header => [], :response_header => [] }
+h[:description]=<<EOD
+EOD
+h[:method] = "POST"
+h[:url]='/gel_images'
+h[:header] << 'Accept: application/json'
+h[:parameters]=<<EOP
+{ "gel_image": {
+    "gel_uuid": "11111111-2222-3333-4444-666666666666",
+    "image": "image encoded",
+    "scores": {
+      "A1": "dummy score",
+      "B2": "fail"
+    }
+}}
+EOP
+h[:status]=422
+h[:response_header] << 'Content-Type: application/json'
+h[:setup]=<<EOD
+EOD
+
+h[:response]=<<EOD
+{
+"errors": {
+  "ensure_scores": [
+    "dummy score is not a valid score for the position A1. Valid scores are pass, fail, degraded, partially degraded."
+  ]
+}
+}
+EOD
+%>
+<%= h.to_json %>
