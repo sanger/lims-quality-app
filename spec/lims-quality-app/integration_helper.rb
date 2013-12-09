@@ -1,11 +1,19 @@
 require 'spec_helper'
 require 'yaml'
 require 'logger'
+require 'sequel'
+Sequel.extension :migration
 Loggers = []
 
 def connect_db(env)
   config = YAML.load_file(File.join('config','database.yml'))
-  Sequel.connect(config[env.to_s], :loggers => Loggers)
+
+  if RUBY_PLATFORM == "java"
+    require 'jdbc/sqlite3'
+    Sequel.connect('jdbc:sqlite:memory')
+  else
+    Sequel.connect(config[env.to_s], :loggers => Loggers)
+  end
 end
 
 def config_bus(env)
@@ -41,6 +49,9 @@ shared_context 'use core context service' do |user="user@example.com", applicati
   let(:context_service) { Lims::Api::ContextService.new(store, message_bus) }
 
   before(:each) do
+    if RUBY_PLATFORM == "java"
+      Sequel::Migrator.run(db, 'db/migrations')
+    end
     app.set(:context_service, context_service)
     header('user_email', user) if user
     header('application_id', application_id) if application_id
