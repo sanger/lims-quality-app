@@ -1,3 +1,9 @@
+module Lims
+  module Core
+    NO_AUTOLOAD = 1
+  end
+end
+
 require "lims-quality-app/version"
 require 'lims-quality-app/gel-image/all'
 

@@ -1,5 +1,5 @@
 module Lims
   module QualityApp
-    VERSION = "0.4.0.rc1"
+    VERSION = "0.4.1.pre"
   end
 end

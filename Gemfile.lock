@@ -46,7 +46,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-quality-app (0.4.0.rc1)
+    lims-quality-app (0.4.1.pre)
       bunny (= 0.9.0.pre10)
 
 GEM

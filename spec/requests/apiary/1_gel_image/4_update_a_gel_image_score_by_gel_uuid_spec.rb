@@ -33,8 +33,8 @@ describe "update_a_gel_image_score_by_gel_uuid", :gel_image => true do
     "update_gel_image_score": {
         "actions": {
         },
-        "user": "user@example.com",
-        "application": "application_id",
+        "user": "user",
+        "application": "application",
         "result": {
             "gel_image": {
                 "actions": {
