@@ -1,24 +1,26 @@
-require "requests/apiary/1_gel_image_metadata/spec_helper"
-describe "update_gel_image_metadata", :gel_image_metadata => true do
+require "requests/apiary/1_gel_image/spec_helper"
+describe "create_gel_image", :gel_image => true do
   include_context "use core context service"
-  it "update_gel_image_metadata" do
-    gel_image_metadata = Lims::QualityApp::GelImageMetadata.new(
-      :score => "good", 
-      :gel_uuid => "11111111-2222-3333-4444-666666666666"
-    )
-    save_with_uuid gel_image_metadata => [1,2,3,4,5]
+  it "create_gel_image" do
 
     header('Content-Type', 'application/json')
     header('Accept', 'application/json')
 
-    response = put "/11111111-2222-3333-4444-555555555555", <<-EOD
+    response = post "/gel_images", <<-EOD
     {
-    "score": "very good"
+    "gel_image": {
+        "gel_uuid": "11111111-2222-3333-4444-666666666666",
+        "image": "image encoded",
+        "scores": {
+            "A1": "pass",
+            "B2": "fail"
+        }
+    }
 }
     EOD
     response.should match_json_response(200, <<-EOD) 
     {
-    "gel_image_metadata": {
+    "gel_image": {
         "actions": {
             "read": "http://example.org/11111111-2222-3333-4444-555555555555",
             "create": "http://example.org/11111111-2222-3333-4444-555555555555",
@@ -26,8 +28,12 @@ describe "update_gel_image_metadata", :gel_image_metadata => true do
             "delete": "http://example.org/11111111-2222-3333-4444-555555555555"
         },
         "uuid": "11111111-2222-3333-4444-555555555555",
-        "score": "very good",
-        "gel_uuid": "11111111-2222-3333-4444-666666666666"
+        "gel_uuid": "11111111-2222-3333-4444-666666666666",
+        "image": "image encoded",
+        "scores": {
+            "A1": "pass",
+            "B2": "fail"
+        }
     }
 }
     EOD
