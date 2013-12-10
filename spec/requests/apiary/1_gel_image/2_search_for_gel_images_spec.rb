@@ -4,8 +4,8 @@ describe "search_for_gel_images", :gel_image => true do
   it "search_for_gel_images" do
 
 
-    gel_image1 = Lims::QualityApp::GelImage.new(:gel_uuid => "11111111-0000-0000-0000-111111111111", :image => "encoded image 1")
-    gel_image2 = Lims::QualityApp::GelImage.new(:gel_uuid => "11111111-0000-0000-0000-222222222222", :image => "encoded image 2")
+    gel_image1 = Lims::QualityApp::GelImage.new(:gel_uuid => "11111111-0000-0000-0000-111111111111", :image => "aW1hZ2UgMQ==")
+    gel_image2 = Lims::QualityApp::GelImage.new(:gel_uuid => "11111111-0000-0000-0000-222222222222", :image => "aW1hZ2UgMg==")
     
     save_with_uuid gel_image1 => [1,2,3,4,6], gel_image2 => [1,2,3,4,7]
 
@@ -62,7 +62,7 @@ describe "search_for_gel_images", :gel_image => true do
             },
             "uuid": "11111111-2222-3333-4444-666666666666",
             "gel_uuid": "11111111-0000-0000-0000-111111111111",
-            "image": "encoded image 1",
+            "image": "aW1hZ2UgMQ==",
             "scores": {
             }
         }
