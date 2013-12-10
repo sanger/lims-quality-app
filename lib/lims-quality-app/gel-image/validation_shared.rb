@@ -4,7 +4,7 @@ module Lims::QualityApp
   class GelImage
     module ValidationShared
       VALID_POSITION = /^[A-Za-z][0-9]+$/ 
-      VALID_BASE64_ENCODING = /^([\w+\/]{4})*([\w+\/]{4}|[\w+\/]{3}=|[\w+\/]{2}==)$/
+      VALID_BASE64_ENCODING = /^([\w\+\/]{4})*([\w\+\/]{4}|[\w\+\/]{3}=|[\w\+\/]{2}==)$/
 
       def ensure_scores
         scores.each do |position, score|
