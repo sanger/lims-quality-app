@@ -204,3 +204,32 @@ POST /actions/update_gel_image_score
         "D4": "partially degraded"
     }
 }
+
+
+**Search for a gel image by gel uuid**
+
+POST /searches
+> Accept: application/json
+{
+    "search": {
+        "description": "search for a gel image by gel uuid",
+        "model": "gel_image",
+        "criteria": {
+            "gel": {
+                "uuid": "11111111-2222-3333-4444-666666666666"
+            }
+        }
+    }
+}
+< 200
+< Content-Type: application/json
+{
+    "search": {
+        "actions": {
+            "read": "/11111111-2222-3333-4444-555555555555",
+            "first": "/11111111-2222-3333-4444-555555555555/page=1",
+            "last": "/11111111-2222-3333-4444-555555555555/page=-1"
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555"
+    }
+}
