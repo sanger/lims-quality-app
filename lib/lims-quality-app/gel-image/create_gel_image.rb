@@ -12,6 +12,7 @@ module Lims::QualityApp
       attribute :gel_uuid, String, :required => true
       attribute :scores, Hash, :required => false, :default => {}
       validates_with_method :ensure_scores
+      validates_with_method :ensure_image
 
       def _call_in_session(session)
         gel_image = GelImage.new(:image => image, :gel_uuid => gel_uuid)
