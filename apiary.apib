@@ -94,10 +94,8 @@ Gel Image
 **Create a new gel image**
 
 * `gel_uuid` (mandatory)
-* `image` the encoded image (mandatory)
+* `image` the encoded image (mandatory - MUST BE BASE64 ENCODED)
 * `scores` hash mapping a gel position to a score. Valid scores are `pass`, `fail`, `degraded` and `partially degraded`.
-
-See the example below to know the list of available parameters for a sample.
 
 POST /gel_images
 > Accept: application/json
