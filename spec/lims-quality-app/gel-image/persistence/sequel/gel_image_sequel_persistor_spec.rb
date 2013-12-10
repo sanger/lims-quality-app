@@ -24,7 +24,7 @@ module Lims::QualityApp
           gi_db = session.gel_image[gel_image_id]
           gi_db.should == gel_image
           gi_db.gel_uuid.should == gel_uuid
-          gi_db.image.should == image
+          Base64.decode64(gi_db.image).should == image
         end
       end
     end
@@ -32,7 +32,7 @@ module Lims::QualityApp
 
     context "with a valid gel image" do
       let(:gel_uuid) { "11111111-2222-3333-4444-555555555555" }
-      let(:image) { "encoded image" }
+      let(:image) { "image 1" }
       let(:gel_image) { new_gel_image }
 
       it_behaves_like "a stored gel image"

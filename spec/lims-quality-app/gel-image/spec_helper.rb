@@ -1,4 +1,5 @@
 require 'lims-quality-app/spec_helper'
+require 'base64'
 
 shared_context "mock gel image score" do
   before do

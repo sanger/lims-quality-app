@@ -14,7 +14,7 @@ module Lims::QualityApp
       subject do
         described_class.new(:store => store, :user => user, :application => application) do |a,s|
           a.gel_uuid = "11111111-2222-3333-4444-555555555555"
-          a.image = "encoded image"
+          a.image = Base64.encode64("image 1")
           a.scores = action_scores
         end
       end
@@ -25,4 +25,3 @@ module Lims::QualityApp
     end
   end
 end
-
