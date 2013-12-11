@@ -9,13 +9,14 @@ module Lims::QualityApp
       include ValidationShared
 
       attribute :image, String, :required => true
+      attribute :filename, String, :required => false
       attribute :gel_uuid, String, :required => true
       attribute :scores, Hash, :required => false, :default => {}
       validates_with_method :ensure_scores
       validates_with_method :ensure_image
 
       def _call_in_session(session)
-        gel_image = GelImage.new(:image => image, :gel_uuid => gel_uuid)
+        gel_image = GelImage.new(:image => image, :gel_uuid => gel_uuid, :filename => filename)
         scores.each do |location, score|
           gel_image.scores[location] = session.score[:score => score]
         end
