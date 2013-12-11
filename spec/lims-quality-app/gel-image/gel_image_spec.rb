@@ -28,6 +28,7 @@ module Lims::QualityApp
         subject.valid?.should == true
       end
 
+      it_has_a :filename
       it_has_a :image
       it_has_a :scores
       it_has_a :gel_uuid

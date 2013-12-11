@@ -23,8 +23,9 @@ module Lims::QualityApp
         store.with_session do |session|
           gi_db = session.gel_image[gel_image_id]
           gi_db.should == gel_image
+          gi_db.filename.should == gel_image_filename
           gi_db.gel_uuid.should == gel_uuid
-          gi_db.image.should == image
+          Base64.decode64(gi_db.image).should == image
         end
       end
     end
@@ -32,8 +33,9 @@ module Lims::QualityApp
 
     context "with a valid gel image" do
       let(:gel_uuid) { "11111111-2222-3333-4444-555555555555" }
-      let(:image) { "encoded image" }
+      let(:image) { "image 1" }
       let(:gel_image) { new_gel_image }
+      let(:gel_image_filename) { "image.jpg" }
 
       it_behaves_like "a stored gel image"
 
@@ -61,6 +63,7 @@ module Lims::QualityApp
           store.with_session do |session|
             gi = session.gel_image[save(gel_image)]
             gi.should == gel_image
+            gi.filename.should == gel_image.filename
             gi.scores.size.should == gel_image.scores.size
             gi.scores.each do |location, score|
               gel_image.scores[location].should == score

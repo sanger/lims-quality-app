@@ -10,7 +10,7 @@ describe "create_a_gel_image_with_invalid_score", :gel_image_errors => true do
     {
     "gel_image": {
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
-        "image": "image encoded",
+        "image": "aW1hZ2UgMQ==",
         "scores": {
             "A1": "dummy score",
             "B2": "fail"
