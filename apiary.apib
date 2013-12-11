@@ -95,6 +95,7 @@ Gel Image
 
 * `gel_uuid` (mandatory)
 * `image` the encoded image (mandatory - MUST BE BASE64 ENCODED)
+* `filename` filename of the image
 * `scores` hash mapping a gel position to a score. Valid scores are `pass`, `fail`, `degraded` and `partially degraded`.
 
 POST /gel_images
@@ -103,6 +104,7 @@ POST /gel_images
     "gel_image": {
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
         "image": "encoded image",
+        "filename": "image.jpg",
         "scores": {
             "A1": "pass",
             "B2": "fail"
@@ -121,6 +123,7 @@ POST /gel_images
     "uuid": "11111111-2222-3333-4444-555555555555",
     "gel_uuid": "11111111-2222-3333-4444-666666666666",
     "image": "encoded image",
+    "filename": "image.jpg",
     "scores": {
         "A1": "pass",
         "B2": "fail"
@@ -156,6 +159,7 @@ PUT /11111111-2222-3333-4444-555555555555
     "uuid": "11111111-2222-3333-4444-555555555555",
     "gel_uuid": "11111111-2222-3333-4444-666666666666",
     "image": "encoded image",
+    "filename": "image.jpg",
     "scores": {
         "A1": "pass",
         "B2": "fail",
@@ -195,6 +199,7 @@ POST /actions/update_gel_image_score
     "uuid": "11111111-2222-3333-4444-555555555555",
     "gel_uuid": "11111111-2222-3333-4444-666666666666",
     "image": "encoded image",
+    "filename": "image.jpg",
     "scores": {
         "A1": "pass",
         "B2": "fail",
