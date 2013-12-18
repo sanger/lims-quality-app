@@ -190,21 +190,39 @@ POST /actions/update_gel_image_score
 < 200
 < Content-Type: application/json
 {
-    "actions": {
-        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
-        "create": "http://example.org/11111111-2222-3333-4444-555555555555",
-        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
-        "delete": "http://example.org/11111111-2222-3333-4444-555555555555"
-    },
-    "uuid": "11111111-2222-3333-4444-555555555555",
-    "gel_uuid": "11111111-2222-3333-4444-666666666666",
-    "image": "encoded image",
-    "filename": "image.jpg",
-    "scores": {
-        "A1": "pass",
-        "B2": "fail",
-        "C3": "degraded",
-        "D4": "partially degraded"
+    "update_gel_image_score": {
+        "actions": {
+        },
+        "user": "user@example.com",
+        "application": "application_id",
+        "result": {
+            "gel_image": {
+                "actions": {
+                    "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "create": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "delete": "http://example.org/11111111-2222-3333-4444-555555555555"
+                },
+                "uuid": "11111111-2222-3333-4444-555555555555",
+                "gel_uuid": "11111111-2222-3333-4444-666666666666",
+                "image": "aW1hZ2UgMQ==",
+                "filename": "image.jpg",
+                "scores": {
+                    "A1": "pass",
+                    "B2": "fail",
+                    "C3": "degraded",
+                    "D4": "partially degraded"
+                }
+            }
+        },
+        "scores": {
+            "A1": "pass",
+            "B2": "fail",
+            "C3": "degraded",
+            "D4": "partially degraded"
+        },
+        "gel_image": null,
+        "gel_uuid": "11111111-2222-3333-4444-666666666666"
     }
 }
 
