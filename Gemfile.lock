@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 3ffeaa815db9362d2f6aaa2d0249281889d416aa
+  revision: c83019c6dd308235a026e6f005e19f638579320d
   branch: uat
   specs:
-    lims-api (3.1.0.pre)
+    lims-api (3.1.1.pre)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -26,6 +26,14 @@ GIT
       state_machine
       uuid
       virtus (= 0.2.0)
+
+GIT
+  remote: http://github.com/sanger/lims-exception-notifier-app.git
+  revision: 4e789cdb62446d6b0b3496046350a111d245fd38
+  branch: master
+  specs:
+    lims-exception-notifier-app (0.1.2)
+      mustache (~> 0.99.4)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -88,6 +96,7 @@ GEM
       systemu (~> 2.5.0)
     mime-types (2.0)
     modularity (0.6.1)
+    mustache (0.99.5)
     mysql2 (0.3.14)
     oj (2.4.0)
     rack (1.5.2)
@@ -144,8 +153,9 @@ DEPENDENCIES
   jdbc-mysql
   jdbc-sqlite3
   json
-  lims-api (~> 3.1.0.pre)!
+  lims-api (~> 3.1.1.pre)!
   lims-core (~> 3.1.0.pre)!
+  lims-exception-notifier-app (~> 0.1.2)!
   lims-quality-app!
   mysql2
   oj
