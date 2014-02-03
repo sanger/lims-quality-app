@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: c83019c6dd308235a026e6f005e19f638579320d
-  branch: uat
+  revision: 3e4c15e00b0b06af116ec2e2b2f2da865c117703
+  branch: uat_blood_reception
   specs:
-    lims-api (3.1.1.pre)
+    lims-api (3.2.0.pre)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -12,16 +12,16 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: 70785367d45b535c37cb469a3f5b828f765d5fa2
-  branch: uat
+  revision: 0783d708108391ae5235aa11aac66a0e1a738fa4
+  branch: uat_blood_reception
   specs:
-    lims-core (3.1.0.pre)
+    lims-core (3.2.0.pre)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
       dm-validations
       facets (= 2.9.3)
-      modularity
+      modularity (= 0.6.1)
       sequel
       state_machine
       uuid
@@ -119,7 +119,7 @@ GEM
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
     ruby-debug-base (0.10.4-java)
-    sequel (4.5.0)
+    sequel (4.7.0)
     shotgun (0.9)
       rack (>= 1.0)
     sqlite3 (1.3.8)
@@ -153,8 +153,8 @@ DEPENDENCIES
   jdbc-mysql
   jdbc-sqlite3
   json
-  lims-api (~> 3.1.1.pre)!
-  lims-core (~> 3.1.0.pre)!
+  lims-api (~> 3.2.0.pre)!
+  lims-core (~> 3.2.0.pre)!
   lims-exception-notifier-app (~> 0.1.2)!
   lims-quality-app!
   mysql2
