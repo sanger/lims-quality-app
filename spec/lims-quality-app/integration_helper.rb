@@ -45,6 +45,7 @@ shared_context 'use core context service' do |user="user@example.com", applicati
   let(:message_bus) { double(:message_bus).tap { |m|
     m.stub(:connect)
     m.stub(:publish)
+    m.stub(:backend_application_id) { "lims-quality-app/spec" }
   } } 
   let(:context_service) { Lims::Api::ContextService.new(store, message_bus) }
 
@@ -62,10 +63,14 @@ end
 
 shared_context "clean store" do
   after(:each) do
-    %w{gel_image_position_scores gel_images uuid_resources primary_keys}.each do |table|
-      db[table.to_sym].delete
+    store.with_session(:backend_application_id => "lims-management-app/spec", :parameters => {action: "purge"}) do
+      %w{gel_image_position_scores gel_images uuid_resources primary_keys}.each do |table|
+        db[table.to_sym].delete
+        revision_table = "#{table}_revision".to_sym
+        db[revision_table].delete if db.table_exists?(revision_table)
+      end
+      db.disconnect
     end
-    db.disconnect
   end
 end
 
