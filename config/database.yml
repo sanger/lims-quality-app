@@ -15,6 +15,15 @@ development_mysql:
   password: root
   socket: /tmp/mysql.sock
 
+test_mysql:
+  adapter: mysql2
+  encoding: utf8
+  charset: utf8
+  database: quality_test
+  username: root
+  password: root
+  socket: /tmp/mysql.sock
+
 development_mysql_jdbc:
   adapter: jdbc
   url: "mysql://localhost/quality_development?user=root&password=root"
