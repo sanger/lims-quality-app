@@ -62,7 +62,7 @@ module Lims::QualityApp
           gel_image = result[:gel_image]
           gel_image.should be_a(GelImage)
           gel_image.gel_uuid.should == "11111111-2222-3333-4444-555555555555"
-          gel_image.image.should == "encoded image"
+          Base64.decode64(gel_image.image).should == "image 1"
           gel_image.scores.size.should == 5
           gel_image.scores["A1"].score.should == "fail"
           gel_image.scores["B2"].score.should == "fail"

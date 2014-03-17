@@ -9,9 +9,9 @@ h[:header] << 'Accept: application/json'
 h[:parameters]=<<EOP
 { "gel_image": {
     "gel_uuid": "11111111-2222-3333-4444-666666666666",
-    "image": "aW1hZ2UgMQ==",
+    "image": "dummy encoding",
     "scores": {
-      "dummy": "pass",
+      "A1": "pass",
       "B2": "fail"
     }
 }}
@@ -24,8 +24,8 @@ EOD
 h[:response]=<<EOD
 {
 "errors": {
-  "ensure_scores": [
-  "dummy is not a valid position."
+  "ensure_image": [
+  "The encoded image doesn't look to be base64 encoded."
   ]
 }
 }

@@ -1,12 +1,13 @@
+require 'base64'
 require 'lims-quality-app/gel-image/spec_helper'
 
 module Lims::QualityApp
   shared_context "gel image factory" do
-    def new_gel_image(gel_uuid = "11111111-2222-3333-4444-555555555555", image = "encoded image")
-      GelImage.new(:gel_uuid => gel_uuid, :image => image)
+    def new_gel_image(gel_uuid = "11111111-2222-3333-4444-555555555555", image = Base64.encode64("image 1"))
+      GelImage.new(:gel_uuid => gel_uuid, :image => image, :filename => "image.jpg")
     end
 
-    def new_scored_gel_image(gel_uuid="11111111-2222-3333-4444-555555555555", image = "encoded image")
+    def new_scored_gel_image(gel_uuid="11111111-2222-3333-4444-555555555555", image = Base64.encode64("image 1"))
       new_gel_image(gel_uuid, image).tap do |gel_image|
         gel_image.scores = scores
       end
@@ -24,7 +25,8 @@ module Lims::QualityApp
     def gel_image_action_parameters
       {
         :gel_uuid => "11111111-2222-3333-4444-555555555555",
-        :image => "encoded image 1",
+        :image => Base64.encode64("image 1"),
+        :filename => "image.jpg",
         :scores => action_scores
       }
     end

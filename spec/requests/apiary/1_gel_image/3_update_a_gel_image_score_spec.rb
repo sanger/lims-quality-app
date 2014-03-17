@@ -4,7 +4,8 @@ describe "update_a_gel_image_score", :gel_image => true do
   it "update_a_gel_image_score" do
     gel_image = Lims::QualityApp::GelImage.new(
       :gel_uuid => "11111111-2222-3333-4444-666666666666",
-      :image => "encoded image 1",
+      :image => "aW1hZ2UgMQ==",
+      :filename => "image.jpg",
       :scores => {
         "A1" => Lims::QualityApp::GelImage::Score.new(:score => "fail"),
         "D4" => Lims::QualityApp::GelImage::Score.new(:score => "partially degraded")
@@ -36,7 +37,8 @@ describe "update_a_gel_image_score", :gel_image => true do
         },
         "uuid": "11111111-2222-3333-4444-555555555555",
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
-        "image": "encoded image 1",
+        "image": "aW1hZ2UgMQ==",
+        "filename": "image.jpg",
         "scores": {
             "A1": "pass",
             "D4": "partially degraded",

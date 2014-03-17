@@ -1,7 +1,7 @@
 require "requests/apiary/2_gel_image_errors/spec_helper"
-describe "create_gel_image_with_invalid_position", :gel_image_errors => true do
+describe "create_gel_image_with_non_base64_encoding", :gel_image_errors => true do
   include_context "use core context service"
-  it "create_gel_image_with_invalid_position" do
+  it "create_gel_image_with_non_base64_encoding" do
 
     header('Content-Type', 'application/json')
     header('Accept', 'application/json')
@@ -10,9 +10,9 @@ describe "create_gel_image_with_invalid_position", :gel_image_errors => true do
     {
     "gel_image": {
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
-        "image": "aW1hZ2UgMQ==",
+        "image": "dummy encoding",
         "scores": {
-            "dummy": "pass",
+            "A1": "pass",
             "B2": "fail"
         }
     }
@@ -21,8 +21,8 @@ describe "create_gel_image_with_invalid_position", :gel_image_errors => true do
     response.should match_json_response(422, <<-EOD) 
     {
     "errors": {
-        "ensure_scores": [
-            "dummy is not a valid position."
+        "ensure_image": [
+            "The encoded image doesn't look to be base64 encoded."
         ]
     }
 }

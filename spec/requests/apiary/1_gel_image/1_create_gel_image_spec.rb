@@ -10,7 +10,8 @@ describe "create_gel_image", :gel_image => true do
     {
     "gel_image": {
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
-        "image": "image encoded",
+        "image": "aW1hZ2U=",
+        "filename": "image.jpg",
         "scores": {
             "A1": "pass",
             "B2": "fail"
@@ -29,7 +30,8 @@ describe "create_gel_image", :gel_image => true do
         },
         "uuid": "11111111-2222-3333-4444-555555555555",
         "gel_uuid": "11111111-2222-3333-4444-666666666666",
-        "image": "image encoded",
+        "image": "aW1hZ2U=",
+        "filename": "image.jpg",
         "scores": {
             "A1": "pass",
             "B2": "fail"

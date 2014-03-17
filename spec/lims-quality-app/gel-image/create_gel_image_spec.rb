@@ -22,6 +22,10 @@ module Lims::QualityApp
         described_class.new(parameters - [:image]).valid?.should == false
       end
 
+      it "requires a base64 encoded image" do
+        described_class.new(parameters.tap { |p| p[:image] = "dummy encoding" }).valid?.should == false
+      end
+
       it "requires a gel uuid" do
         described_class.new(parameters - [:gel_uuid]).valid?.should == false
       end
@@ -43,7 +47,8 @@ module Lims::QualityApp
         subject do
           described_class.new(:store => store, :user => user, :application => application) do |a,s|
             a.gel_uuid = "11111111-2222-3333-4444-666666666666"
-            a.image = "encoded image 1"
+            a.image = Base64.encode64("image 1")
+            a.filename = "image.jpg"
             a.scores = action_scores 
           end
         end
@@ -60,7 +65,8 @@ module Lims::QualityApp
           gel_image = result[:gel_image]
           gel_image.should be_a(GelImage)
           gel_image.gel_uuid.should == "11111111-2222-3333-4444-666666666666"
-          gel_image.image.should == "encoded image 1"
+          gel_image.filename.should == "image.jpg"
+          Base64.decode64(gel_image.image).should == "image 1"
           gel_image.scores.size.should == 4
           gel_image.scores["A1"].score.should == "pass"
           gel_image.scores["B2"].score.should == "fail"
