@@ -65,6 +65,7 @@ describe "search_for_gel_images", :gel_image => true do
             "filename": "image1.jpg",
             "image": "aW1hZ2UgMQ==",
             "scores": {
+
             }
         }
     ]

@@ -45,6 +45,7 @@ shared_context 'use core context service' do |user="user@example.com", applicati
   let(:message_bus) { double(:message_bus).tap { |m|
     m.stub(:connect)
     m.stub(:publish)
+    m.stub(:backend_application_id)
   } } 
   let(:context_service) { Lims::Api::ContextService.new(store, message_bus) }
 
